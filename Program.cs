@@ -1,5 +1,10 @@
-﻿using ImportExportFile;
-using ImportExportService.Services;
+﻿using ImportExportFile.Application;
+using ImportExportFile.Application.Abstractions;
+using ImportExportFile.Application.Services;
+using ImportExportFile.Domain.Entities;
+using ImportExportFile.Infrastructure;
+using ImportExportFile.Infrastructure.Persistence;
+using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -8,8 +13,11 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 // Register services
-builder.Services.AddScoped<ImportService>();
-builder.Services.AddScoped<ExportService>();
+builder.Services.AddApplicationServices();
+builder.Services.AddInfrastructureServices(builder.Configuration);
+
+
+
 
 builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"))

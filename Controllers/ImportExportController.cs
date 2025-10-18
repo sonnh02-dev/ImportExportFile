@@ -1,6 +1,7 @@
-﻿using ImportExportFile.Domain.Entities;
-using ImportExportFile.Models;
-using ImportExportService.Services;
+﻿using ImportExportFile.Application.Dtos;
+using ImportExportFile.Application.Dtos.Request;
+using ImportExportFile.Application.Services;
+using ImportExportFile.Domain.Entities;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ImportExportService.Controllers
@@ -26,18 +27,18 @@ namespace ImportExportService.Controllers
             return Ok(result);
         }
 
-        [HttpGet("export")]
-        public async Task<IActionResult> ExportBooks()
-        {
-            var books = new List<Book>
-            {
-                new() { Id = "1", Author = "Alice", Title = "C# Guide", Genre = "Tech", Price = 9.99, PublishDate = DateTime.Now },
-                new() { Id = "2", Author = "Bob", Title = "ASP.NET 8", Genre = "Tech", Price = 12.50, PublishDate = DateTime.Now }
-            };
+        //[HttpGet("export")]
+        //public async Task<IActionResult> ExportBooks()
+        //{
+        //    var books = new List<BookDto>
+        //    {
+        //        new() { Author = "Alice", Title = "C# Guide", Genre = "Tech", Price = 9.99, PublishDate = DateTime.Now },
+        //        new() { Author = "Bob", Title = "ASP.NET 8", Genre = "Tech", Price = 12.50, PublishDate = DateTime.Now }
+        //    };
 
-            var filePath = await _exportService.ExportBooksAsync(books);
-            var bytes = await System.IO.File.ReadAllBytesAsync(filePath);
-            return File(bytes, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", Path.GetFileName(filePath));
-        }
+        //    var filePath = await _exportService.ExportBooksAsync(books);
+        //    var bytes = await System.IO.File.ReadAllBytesAsync(filePath);
+        //    return File(bytes, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", Path.GetFileName(filePath));
+        //}
     }
 }

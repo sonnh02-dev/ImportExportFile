@@ -1,4 +1,4 @@
-﻿namespace ImportExportService.Models
+﻿namespace ImportExportFile.Application.Dtos.Responses
 {
     public class ImportResult
     {

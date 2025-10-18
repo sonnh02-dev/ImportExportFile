@@ -1,4 +1,4 @@
-﻿namespace ImportExportFile.Entities
+﻿namespace ImportExportFile.Domain.Entities
 {
     public class Book
     {
@@ -10,6 +10,8 @@
         public DateTime PublishDate { get; set; }
         public string Description { get; set; } = string.Empty;
         public Genre Genre { get; set; } = default!;
+        public ICollection<Feedback> Feedbacks { get; set; } = new List<Feedback>();
+        public ICollection<History> Histories { get; set; } = new List<History>();
 
     }
 }

@@ -1,4 +1,4 @@
-﻿namespace ImportExportFile.Entities
+﻿namespace ImportExportFile.Domain.Entities
 {
     public class User
     {
@@ -8,6 +8,6 @@
         public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
 
         public ICollection<Feedback> Feedbacks { get; set; } = new List<Feedback>();
-        public ICollection<UserBookHistory> BookHistories { get; set; } = new List<UserBookHistory>();
+        public ICollection<History> Histories { get; set; } = new List<History>();
     }
 }

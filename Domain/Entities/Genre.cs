@@ -1,4 +1,4 @@
-﻿namespace ImportExportFile.Entities
+﻿namespace ImportExportFile.Domain.Entities
 {
     public class Genre
     {

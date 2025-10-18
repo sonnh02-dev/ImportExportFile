@@ -1,4 +1,4 @@
-﻿namespace ImportExportFile.Models
+﻿namespace ImportExportFile.Application.Dtos.Request
 {
     public class ImportBookRequest
     {
