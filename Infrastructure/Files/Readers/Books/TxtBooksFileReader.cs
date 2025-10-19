@@ -3,12 +3,12 @@ using ImportExportFile.Application.Dtos;
 
 namespace ImportExportFile.Infrastructure.Files.Readers.Books
 {
-    public class TxtBookFileReader : IFileReader<BookDto>
+    public class TxtBooksFileReader : IFileReader<BookDto>
     {
         public bool CanRead(string extension) =>
             extension.Equals(".txt", StringComparison.OrdinalIgnoreCase);
 
-        public List<BookDto> Read(string filePath)
+        public IEnumerable<BookDto> Read(string filePath)
         {
             var books = new List<BookDto>();
             var lines = File.ReadAllLines(filePath);

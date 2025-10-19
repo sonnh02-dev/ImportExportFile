@@ -1,4 +1,6 @@
 ﻿using ImportExportFile.Application.Services;
+using ImportExportFile.Domain.IRepositories;
+using ImportExportFile.Infrastructure.Repositories;
 using Microsoft.Extensions.DependencyInjection;
 using System.Reflection;
 
@@ -12,6 +14,7 @@ namespace ImportExportFile.Application
             services.AddAutoMapper(Assembly.GetExecutingAssembly());
             services.AddScoped<ImportService>();
             services.AddScoped<ExportService>();
+
             return services;
         }
     }

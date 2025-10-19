@@ -19,10 +19,15 @@ builder.Services.AddInfrastructureServices(builder.Configuration);
 
 
 
-builder.Services.AddDbContext<AppDbContext>(options =>
-    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"))
-);
 var app = builder.Build();
+
+using (var scope = app.Services.CreateScope())
+{
+    var dbContext = scope.ServiceProvider.GetRequiredService<AppDbContext>();
+    //Ensure database is created and apply migrations
+    await dbContext.Database.MigrateAsync();
+    await AppDbInitializer.SeedAsync(dbContext);
+}
 
 if (app.Environment.IsDevelopment())
 {

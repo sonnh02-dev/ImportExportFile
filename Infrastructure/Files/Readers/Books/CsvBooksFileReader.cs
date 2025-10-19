@@ -6,12 +6,12 @@ using System.Globalization;
 
 namespace ImportExportFile.Infrastructure.Files.Readers.Books
 {
-    public class CsvBookFileReader : IFileReader<BookDto>
+    public class CsvBooksFileReader : IFileReader<BookDto>
     {
         public bool CanRead(string extension) =>
             extension.Equals(".csv", StringComparison.OrdinalIgnoreCase);
 
-        public List<BookDto> Read(string filePath)
+        public IEnumerable<BookDto> Read(string filePath)
         {
             using var reader = new StreamReader(filePath);
             using var csv = new CsvReader(reader, CultureInfo.InvariantCulture);

@@ -6,9 +6,9 @@ using OfficeOpenXml;
 namespace ImportExportFile.Infrastructure.Files.Readers.Books
 {
 
-    public class ExcelBookFileReader : IFileReader<BookDto>
+    public class ExcelBooksFileReader : IFileReader<BookDto>
     {
-        public ExcelBookFileReader()
+        public ExcelBooksFileReader()
         {
             ExcelPackage.License.SetNonCommercialPersonal("ImportExportService");
 
@@ -16,7 +16,7 @@ namespace ImportExportFile.Infrastructure.Files.Readers.Books
         public bool CanRead(string extension) =>
             extension.Equals(".xlsx", StringComparison.OrdinalIgnoreCase);
 
-        public List<BookDto> Read(string filePath)
+        public IEnumerable<BookDto> Read(string filePath)
         {
             var books = new List<BookDto>();
 

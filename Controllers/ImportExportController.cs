@@ -27,18 +27,12 @@ namespace ImportExportService.Controllers
             return Ok(result);
         }
 
-        //[HttpGet("export")]
-        //public async Task<IActionResult> ExportBooks()
-        //{
-        //    var books = new List<BookDto>
-        //    {
-        //        new() { Author = "Alice", Title = "C# Guide", Genre = "Tech", Price = 9.99, PublishDate = DateTime.Now },
-        //        new() { Author = "Bob", Title = "ASP.NET 8", Genre = "Tech", Price = 12.50, PublishDate = DateTime.Now }
-        //    };
-
-        //    var filePath = await _exportService.ExportBooksAsync(books);
-        //    var bytes = await System.IO.File.ReadAllBytesAsync(filePath);
-        //    return File(bytes, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", Path.GetFileName(filePath));
-        //}
+        [HttpGet("export")]
+        public async Task<IActionResult> ExportBooks()
+        {
+            var filePath = await _exportService.ExportBooksReportAsync();
+            var bytes = await System.IO.File.ReadAllBytesAsync(filePath);
+            return File(bytes, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", Path.GetFileName(filePath));
+        }
     }
 }
