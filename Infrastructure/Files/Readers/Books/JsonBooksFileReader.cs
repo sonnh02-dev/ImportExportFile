@@ -1,7 +1,6 @@
 ﻿using ImportExportFile.Application.Abstractions.Files;
 using ImportExportFile.Application.Dtos;
-using ImportExportFile.Domain.Entities;
-using Newtonsoft.Json;
+using System.Text.Json;
 
 namespace ImportExportFile.Infrastructure.Files.Readers.Books
 {
@@ -10,12 +9,12 @@ namespace ImportExportFile.Infrastructure.Files.Readers.Books
         public bool CanRead(string extension) =>
             extension.Equals(".json", StringComparison.OrdinalIgnoreCase);
 
-        public IEnumerable<BookDto> Read(string filePath)
+        public IEnumerable<BookDto> Read(Stream stream)
         {
-            var json = File.ReadAllText(filePath);
-            var root = JsonConvert.DeserializeObject<List<BookDto>>(json);
-            return  new List<BookDto>();
+            var root = JsonSerializer.Deserialize<List<BookDto>>(stream);
+            return root ?? new List<BookDto>();
         }
+
     }
 
 }

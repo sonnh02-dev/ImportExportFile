@@ -3,6 +3,6 @@
     public interface IFileReader<T>
     {
         bool CanRead(string extension);
-        IEnumerable<T> Read(string filePath);
+        IEnumerable<T> Read(Stream stream);
     }
 }

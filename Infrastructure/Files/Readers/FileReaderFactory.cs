@@ -13,6 +13,7 @@ namespace ImportExportFile.Infrastructure.Files.Readers
 
         public IFileReader<T> GetReader(string extension)
         {
+
             var reader = _readers.FirstOrDefault(r => r.CanRead(extension));
             if (reader == null)
                 throw new NotSupportedException($"Unsupported file format: {extension}");

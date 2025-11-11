@@ -8,13 +8,22 @@ namespace ImportExportFile.Infrastructure.Files.Readers.Books
         public bool CanRead(string extension) =>
             extension.Equals(".txt", StringComparison.OrdinalIgnoreCase);
 
-        public IEnumerable<BookDto> Read(string filePath)
+        public IEnumerable<BookDto> Read(Stream stream)
         {
             var books = new List<BookDto>();
-            var lines = File.ReadAllLines(filePath);
 
-            foreach (var line in lines.Skip(1)) // bỏ header
+            using var reader = new StreamReader(stream);
+            string? line;
+            bool isFirstLine = true;
+
+            while ((line = reader.ReadLine()) != null)
             {
+                if (isFirstLine)
+                {
+                    isFirstLine = false;
+                    continue; // bỏ header
+                }
+
                 var parts = line.Split('|');
                 if (parts.Length < 6) continue;
 

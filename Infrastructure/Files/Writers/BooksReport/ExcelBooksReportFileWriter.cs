@@ -9,8 +9,7 @@ namespace ImportExportFile.Infrastructure.Files.Writers.BooksReport
     {
         public ExcelBooksReportFileWriter()
         {
-            // Bắt buộc khi dùng EPPlus trong môi trường phi thương mại
-            ExcelPackage.LicenseContext = LicenseContext.NonCommercial;
+            ExcelPackage.License.SetNonCommercialPersonal("ImportExportService");
         }
 
         public bool CanWrite(string extension) =>

@@ -1,6 +1,0 @@
-@ImportExportFile_HostAddress = http://localhost:5163
-
-GET {{ImportExportFile_HostAddress}}/weatherforecast/
-Accept: application/json
-
-###

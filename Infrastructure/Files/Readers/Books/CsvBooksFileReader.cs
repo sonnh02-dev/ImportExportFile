@@ -11,9 +11,9 @@ namespace ImportExportFile.Infrastructure.Files.Readers.Books
         public bool CanRead(string extension) =>
             extension.Equals(".csv", StringComparison.OrdinalIgnoreCase);
 
-        public IEnumerable<BookDto> Read(string filePath)
+        public IEnumerable<BookDto> Read(Stream stream)
         {
-            using var reader = new StreamReader(filePath);
+            using var reader = new StreamReader(stream);
             using var csv = new CsvReader(reader, CultureInfo.InvariantCulture);
             var records = csv.GetRecords<BookDto>().ToList();
             return records;

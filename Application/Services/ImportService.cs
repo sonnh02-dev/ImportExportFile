@@ -28,16 +28,23 @@ namespace ImportExportFile.Application.Services
 
         public async Task<ImportResult> ImportBooksAsync(IFormFile file)
         {
-            var filePath = await _fileStorage.SaveAsync(file);
-            var extension = Path.GetExtension(filePath);
+            // Save file to storage
+            var filePath = await _fileStorage.SaveAsync(file,"imports");//save the file path to the database if required.
+
+
+            // Get appropriate reader based on file extension
+            var extension = Path.GetExtension(file.FileName);
             var reader = _bookReaderFactory.GetReader(extension);
-            var bookDtos = reader.Read(filePath);
+
+            // Read and parse the file
+            using var stream = file.OpenReadStream();
+            var bookDtos = reader.Read(stream);
 
             var books = _mapper.Map<List<Book>>(bookDtos);
 
-            await _bookRepository.AddRangeAsync(books);
-            await _bookRepository.SaveChangesAsync();
-            // _fileStorage.Delete(filePath);
+            //await _bookRepository.AddRangeAsync(books);
+            //await _bookRepository.SaveChangesAsync();
+
 
             return new ImportResult
             {

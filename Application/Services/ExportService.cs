@@ -29,10 +29,10 @@ namespace ImportExportFile.Application.Services
 
         public async Task<string> ExportBooksReportAsync()
         {
-            var fileName = $"BookReport_{DateTime.Now:yyyyMMddHHmmss}.xlsx";
-            var folder = Path.Combine(Path.GetTempPath(), "BookReports");
-            Directory.CreateDirectory(folder);
-            var filePath = Path.Combine(folder, fileName);
+            var filePath = $"BookReport_{DateTime.Now:yyyyMMddHHmmss}.xlsx";
+            //var folder = Path.Combine(Path.GetTempPath(), "BookReports");
+            //Directory.CreateDirectory(folder);
+            //var filePath = Path.Combine(folder, fileName);
 
             var books = _bookRepository.GetBooksWithDetails()
                         .ProjectTo<BookReportDto>(_mapper.ConfigurationProvider);

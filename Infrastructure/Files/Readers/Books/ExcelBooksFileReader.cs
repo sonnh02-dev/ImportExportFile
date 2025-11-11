@@ -16,16 +16,16 @@ namespace ImportExportFile.Infrastructure.Files.Readers.Books
         public bool CanRead(string extension) =>
             extension.Equals(".xlsx", StringComparison.OrdinalIgnoreCase);
 
-        public IEnumerable<BookDto> Read(string filePath)
+        public IEnumerable<BookDto> Read(Stream stream)
         {
             var books = new List<BookDto>();
-
-            using var package = new ExcelPackage(new FileInfo(filePath));
-            var worksheet = package.Workbook.Worksheets[0];
+        
+            using var package = new ExcelPackage(stream);
+            var worksheet = package.Workbook.Worksheets["Books"];
 
             var rowCount = worksheet.Dimension.Rows;
 
-            for (int row = 2; row <= rowCount; row++) // bỏ header
+            for (int row = 2; row <= rowCount; row++) // bỏ header 
             {
                 books.Add(new BookDto
                 {

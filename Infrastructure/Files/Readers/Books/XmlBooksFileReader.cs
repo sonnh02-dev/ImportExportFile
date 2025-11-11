@@ -5,22 +5,16 @@ using ImportExportFile.Domain.Entities;
 
 namespace ImportExportFile.Infrastructure.Files.Readers.Books
 {
-    public class XmlBookFileReader : IFileReader<BookDto>
+    public class XmlBooksFileReader : IFileReader<BookDto>
     {
         public bool CanRead(string extension) =>
             extension.Equals(".xml", StringComparison.OrdinalIgnoreCase);
 
-        public IEnumerable<BookDto> Read(string filePath)
+        public IEnumerable<BookDto> Read(Stream stream)
         {
-            if (string.IsNullOrWhiteSpace(filePath))
-                throw new ArgumentException("File path cannot be null or empty.", nameof(filePath));
+            if (stream == null || !stream.CanRead)
+                throw new ArgumentException("Invalid stream.", nameof(stream));
 
-            if (!File.Exists(filePath))
-                throw new FileNotFoundException("XML file not found.", filePath);
-
-            using var stream = File.OpenRead(filePath);
-
-            // Giả định rằng file XML có dạng <Catalog><Book>...</Book><Book>...</Book></Catalog>
             var serializer = new XmlSerializer(typeof(Catalog));
 
             if (serializer.Deserialize(stream) is Catalog catalog && catalog.Book != null)
